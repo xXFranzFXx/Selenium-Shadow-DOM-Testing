@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="TestNG"  verbose="1">
+<listeners>
+    <listener class-name="util.listeners.TestListener"/>
+    <listener class-name="util.listeners.AnnotationTransformer"/>
+</listeners>
+    <test name="shadow dom tests" >
+       <parameter name="borrowBookURL" value="https://archive.org/details/apologeticsclass0000glen/mode/2up"/>
+        <parameter name="bookURL" value="https://archive.org/details/explanationofbal00kink_0/page/n0/mode/1up"/>
+        <parameter name="pamphletURL" value="https://archive.org/details/measuringrodtot00ruth"/>
+        <classes>
+            <class name="tests.BookPageTests"/>
+        </classes>
+    </test>
+</suite>
