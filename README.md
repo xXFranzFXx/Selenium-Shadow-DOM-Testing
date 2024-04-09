@@ -27,3 +27,6 @@ Follow these steps to get started<br>
 4.) Fill in all the appropriate property values in the .env file<br>
 5.) Add the url for any youtube video as a TestNG parameter in the TextNG.xml file
 6.) gradle clean test<br>
+<h3>Todo</h3>
+create tests for items that need to be "checked out"<br>
+refine tests
