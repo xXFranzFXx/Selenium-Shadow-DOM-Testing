@@ -27,6 +27,8 @@ Follow these steps to get started<br>
 4.) Fill in all the appropriate property values in the .env file<br>
 5.) Add the url for any youtube video as a TestNG parameter in the TextNG.xml file
 6.) gradle clean test<br>
-<h3>Todo</h3>
-create tests for items that need to be "checked out"<br>
-refine tests
+<h3>This is still a work in progress</h3>
+There is only one test so far that just downloads images, it is an incomplete test, but nonetheless it still achieves the main goals: locate shadow dom elements, download images, this repository is strictly for practice<br>
+
+
+
