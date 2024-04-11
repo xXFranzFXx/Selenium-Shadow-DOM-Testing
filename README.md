@@ -25,7 +25,6 @@ Follow these steps to get started<br>
 2.) cd Selenium-Shadow-DOM-Testing <br>
 3.) Rename "sample.env" to ".env" in src/test/resources, you will need archive.org login details<br>
 4.) Fill in all the appropriate property values in the .env file<br>
-5.) Add the url for any youtube video as a TestNG parameter in the TextNG.xml file<br>
 6.) gradle clean test<br>
 <h3>This is still a work in progress</h3>
 
