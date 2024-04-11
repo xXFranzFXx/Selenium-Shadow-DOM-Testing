@@ -7,7 +7,7 @@
     <listener class-name="util.listeners.AnnotationTransformer"/>
 </listeners>
     <test name="shadow dom tests" >
-       <parameter name="borrowBookURL" value="https://archive.org/details/apologeticsclass0000glen/mode/2up"/>
+       <parameter name="borrowBookURL" value="https://archive.org/details/apologeticsclass0000glen/page/n0/mode/2up"/>
         <parameter name="bookURL" value="https://archive.org/details/explanationofbal00kink_0/page/n0/mode/1up"/>
         <parameter name="pamphletURL" value="https://archive.org/details/measuringrodtot00ruth"/>
         <classes>

@@ -5,12 +5,14 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Reporter;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.net.URI;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -52,14 +54,19 @@ public class BookPage extends BasePage{
         findElement(submitButton).click();
         return this;
     }
+
+    public void clickReturnBook() {
+        WebElement returnBookButton = driver.findElement(By.tagName("ia-book-actions")).getShadowRoot()
+                .findElement(By.cssSelector("collapsible-action-group")).getShadowRoot()
+                .findElement(By.cssSelector("button.ia-button.danger.initial"));
+        wait.until(ExpectedConditions.elementToBeClickable(returnBookButton)).click();
+    }
     public BookPage viewOrBorrowBook(String bookURL, String choice) {
         switch (choice) {
             case "borrow" :
-              driver.get(bookURL);
-              WebElement loginAndBorrowButton = driver.findElement(By.tagName("ia-book-actions")).getShadowRoot()
-                    .findElement(By.cssSelector("collapsible-action-group")).getShadowRoot()
-                    .findElement(By.cssSelector("button.ia-button.primary.initial"));
-                findElement(loginAndBorrowButton).click();
+              driver.navigate().to(bookURL);
+              borrowButton().click();
+               actions.pause(Duration.ofSeconds(10)).perform();
             case "view" :
                 driver.get(bookURL);
             default:
@@ -77,7 +84,7 @@ public class BookPage extends BasePage{
             URI imageURL = new URI(logoSRC);
             BufferedImage saveImage = ImageIO.read(imageURL.toURL());
 
-            ImageIO.write(saveImage, "png", new File("src/test/resources/savedImages/"+directory+"/"+fileName+".png"));
+            ImageIO.write(saveImage, "png", new File("saved/"+directory+"/"+fileName+".png"));
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -87,25 +94,38 @@ public class BookPage extends BasePage{
     }
     public void saveCoverImage(String directory) {
         saveImage(coverImage, "coverImage", directory);
-
     }
     public void savePages(String directory) {
         saveCoverImage(directory);
         clickNextPage();
         int current = Integer.parseInt(getCurrentPage("current"));
         int total = Integer.parseInt(getCurrentPage("total"));
-        int i = current;
-        while (i <= total) {
+        int i = current + 1;
+        while (current <= 25) {
+            Reporter.log("i: " + i, true);
             WebElement firstImg = getImage(Integer.valueOf(i).toString());
             saveImage(firstImg, Integer.valueOf(i).toString(), directory);
             WebElement secondImg = getImage(Integer.valueOf(i+1).toString());
             saveImage(secondImg, Integer.valueOf(i+1).toString(), directory);
-            clickNextPage();
             i+=2;
+            clickNextPage();
+            actions.pause(Duration.ofSeconds(15)).perform();
+
         }
+        clickReturnBook();
+        actions.pause(Duration.ofSeconds(3)).perform();
     }
     public WebElement getImage(String element) {
-        return driver.findElement(By.cssSelector(".pagediv"+element+" .BRpageimage"));
+        WebElement image = driver.findElement(By.cssSelector(".pagediv"+element+" .BRpageimage"));
+        return wait.until(ExpectedConditions.visibilityOf(image));
+    }
+    public String buttonText() {
+        return borrowButton().getText();
+    }
+    public WebElement borrowButton() {
+        return driver.findElement(By.tagName("ia-book-actions")).getShadowRoot()
+                .findElement(By.cssSelector("collapsible-action-group")).getShadowRoot()
+                .findElement(By.cssSelector("button.ia-button.primary.initial"));
     }
     public String getCurrentPage(String choice) {
         List<String> finds = new ArrayList<>();
