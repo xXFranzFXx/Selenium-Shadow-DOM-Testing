@@ -35,7 +35,6 @@ public class BookPage extends BasePage{
     private WebElement submitButton;
     private static final String regex = "-?\\d+";
 
-
     public BookPage(WebDriver givenDriver) {
         super(givenDriver);
     }
@@ -120,16 +119,5 @@ public class BookPage extends BasePage{
             case "total" -> finds.get(1);
             default -> matcher.group();
         };
-
     }
-    public BookPage contextMenuSaveImage() {
-        String imgSRC = findElement(coverImage).getAttribute("src");
-        Reporter.log("imgSRC: " + imgSRC, true);
-        driver.get(imgSRC);
-        contextClick(find(By.tagName("img")));
-        actions.sendKeys(Keys.ARROW_DOWN).sendKeys(Keys.ARROW_DOWN).sendKeys(Keys.ENTER).perform();
-        return this;
-    }
-
-
 }
