@@ -91,16 +91,19 @@ public class BookPage extends BasePage{
     public void savePages(String directory) {
         saveCoverImage(directory);
         clickNextPage();
-        int current = Integer.parseInt(getCurrentPage("current"));
+        int current;
         int total = Integer.parseInt(getCurrentPage("total"));
-        int i = current;
-        while (i <= total) {
+        int i = 1;
+        while (i < total) {
+            current = Integer.parseInt(getCurrentPage("current"));
             WebElement firstImg = getImage(Integer.valueOf(i).toString());
             saveImage(firstImg, Integer.valueOf(i).toString(), directory);
             WebElement secondImg = getImage(Integer.valueOf(i+1).toString());
             saveImage(secondImg, Integer.valueOf(i+1).toString(), directory);
+
+            i = current + 2;
             clickNextPage();
-            i+=2;
+            Reporter.log("Current: " + current, true);
         }
     }
     public WebElement getImage(String element) {
@@ -119,5 +122,10 @@ public class BookPage extends BasePage{
             case "total" -> finds.get(1);
             default -> matcher.group();
         };
+    }
+    public boolean isLastPage() {
+        String current = getCurrentPage("current");
+        String total = getCurrentPage("total");
+        return current.equals(total);
     }
 }
