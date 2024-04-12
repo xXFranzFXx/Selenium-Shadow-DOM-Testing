@@ -9,24 +9,22 @@ import pages.BookPage;
 public class BookPageTests extends BaseTest {
     BookPage bookPage;
     @Test
-    @Parameters({"pamphletURL"})
-    public void firstTest(String pamphletURL) {
+    public void firstTest() {
         bookPage = new BookPage(getDriver());
-        bookPage.viewOrBorrowBook(pamphletURL, "view").savePages("pamphlet");
+        bookPage.viewOrBorrowBook(System.getProperty("pamphletURL"), "view").savePages("pamphlet");
         Assert.assertEquals(bookPage.getCurrentPage("current"), bookPage.getCurrentPage("total"));
     }
     @Test
-    @Parameters({"borrowBookURL"})
-    public void loginWithBorrowButtonTest(String borrowBookURL) {
+    public void loginWithBorrowButtonTest() {
         bookPage = new BookPage(getDriver());
-        bookPage.viewOrBorrowBook(borrowBookURL, "borrow");
+        bookPage.viewOrBorrowBook(System.getProperty("borrowBookURL"), "borrow");
         Assert.assertTrue(bookPage.borrowButton().isDisplayed());
     }
     @Test
-    @Parameters({"borrowBookURL"})
-    public void loginAndBorrowTest(String borrowBookURL) {
+
+    public void loginAndBorrowTest() {
         bookPage = new BookPage(getDriver());
-        bookPage.viewOrBorrowBook(borrowBookURL, "borrow");
+        bookPage.viewOrBorrowBook(System.getProperty("borrowBookURL"), "borrow");
         bookPage.clickBorrowButton();
         getDriver().navigate().refresh();
         bookPage.clickBorrowButton();

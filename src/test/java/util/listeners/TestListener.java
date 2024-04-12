@@ -1,5 +1,6 @@
 package util.listeners;
 
+import base.BaseTest;
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
@@ -13,9 +14,11 @@ import org.openqa.selenium.support.events.WebDriverListener;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
+import util.TestUtil;
 import util.extentReports.ExtentManager;
 import util.logs.Log;
 
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Collection;
@@ -49,7 +52,11 @@ public class TestListener  implements ITestListener, WebDriverListener {
     @Override
     public synchronized void onTestFailure(ITestResult result) {
         Log.error(result.getMethod().getMethodName() + " failed!");
-        //            TestUtil.takeScreenshotAtEndOfTest(result.getMethod().getMethodName(), BaseTest.getDriver());
+        try {
+            TestUtil.takeScreenshotAtEndOfTest(result.getMethod().getMethodName(), BaseTest.getDriver());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         test.get().log(Status.FAIL, "fail ❌").addScreenCaptureFromPath("/reports/extent-reports/screenshots/" + result.getMethod().getMethodName() + ".png");
         Log.info("screen shot taken for failed test " + result.getMethod().getMethodName());
         test.get().fail(result.getThrowable());
