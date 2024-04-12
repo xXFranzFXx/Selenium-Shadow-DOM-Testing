@@ -160,6 +160,11 @@ public class BookPage extends BasePage{
         actions.sendKeys(Keys.ARROW_DOWN).sendKeys(Keys.ARROW_DOWN).sendKeys(Keys.ENTER).perform();
         return this;
     }
+    public boolean isLastPage() {
+        String current = getCurrentPage("current");
+        String total = getCurrentPage("total");
+        return current.equals(total);
+    }
 
 
 }
