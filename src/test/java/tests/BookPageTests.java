@@ -26,11 +26,9 @@ public class BookPageTests extends BaseTest {
     public void loginAndBorrowTest(String borrowBookURL) {
         bookPage = new BookPage(getDriver());
         bookPage.viewOrBorrowBook(borrowBookURL, "borrow");
-        bookPage.pause(5).borrowButton().click();
+        bookPage.clickBorrowButton();
         getDriver().navigate().refresh();
-        bookPage.pause(5).returnBookButton().click();
-
-        bookPage.pause(3);
+        bookPage.clickBorrowButton();
         Assert.assertTrue(bookPage.borrowButton().isDisplayed());
     }
 }

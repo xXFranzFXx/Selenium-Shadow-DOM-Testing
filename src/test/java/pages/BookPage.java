@@ -17,6 +17,7 @@ import java.sql.DriverManager;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -103,22 +104,18 @@ public class BookPage extends BasePage{
         clickNextPage();
         int current;
         int total = Integer.parseInt(getCurrentPage("total"));
-        int i =  1;
+        int i = 1;
         while (i < total) {
-
-            current =  Integer.parseInt(getCurrentPage("current"));
-
-            Reporter.log("i: " + i, true);
+            current = Integer.parseInt(getCurrentPage("current"));
             WebElement firstImg = getImage(Integer.valueOf(i).toString());
             saveImage(firstImg, Integer.valueOf(i).toString(), directory);
             WebElement secondImg = getImage(Integer.valueOf(i+1).toString());
             saveImage(secondImg, Integer.valueOf(i+1).toString(), directory);
+
             i = current + 2;
             clickNextPage();
-
+            Reporter.log("Current: " + current, true);
         }
-        returnBookButton().click();
-        actions.pause(Duration.ofSeconds(3)).perform();
     }
     public WebElement getImage(String element) {
         WebElement image = driver.findElement(By.cssSelector(".pagediv"+element+" .BRpageimage"));
@@ -131,6 +128,18 @@ public class BookPage extends BasePage{
         return driver.findElement(By.tagName("ia-book-actions")).getShadowRoot()
                 .findElement(By.cssSelector("collapsible-action-group")).getShadowRoot()
                 .findElement(By.cssSelector("button.ia-button.primary.initial"));
+    }
+    public BookPage clickBorrowButton() {
+       try {
+               returnBookButton().click();
+               pause(3);
+       } catch(NoSuchElementException e) {
+           Reporter.log("Error: " + e);
+       } finally {
+           borrowButton().click();
+           pause(3);
+       }
+        return this;
     }
     public String getCurrentPage(String choice) {
         List<String> finds = new ArrayList<>();
@@ -165,6 +174,4 @@ public class BookPage extends BasePage{
         String total = getCurrentPage("total");
         return current.equals(total);
     }
-
-
 }
