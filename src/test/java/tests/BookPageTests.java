@@ -13,6 +13,7 @@ public class BookPageTests extends BaseTest {
     public void firstTest(String pamphletURL) {
         bookPage = new BookPage(getDriver());
         bookPage.viewOrBorrowBook(pamphletURL, "view").savePages("pamphlet");
+        Assert.assertEquals(bookPage.getCurrentPage("current"), bookPage.getCurrentPage("total"));
     }
     @Test
     @Parameters({"borrowBookURL"})
