@@ -39,7 +39,7 @@ public class BookPage extends BasePage{
         super(givenDriver);
     }
     public BookPage login() {
-        driver.navigate().to("https://archive.org");
+        driver.navigate().to(System.getProperty("homePage"));
         WebElement shadowLoginBtn = driver.findElement(By.tagName("app-root")).getShadowRoot()
                 .findElement(By.cssSelector("ia-topnav")).getShadowRoot()
                 .findElement(By.cssSelector("primary-nav")).getShadowRoot()
