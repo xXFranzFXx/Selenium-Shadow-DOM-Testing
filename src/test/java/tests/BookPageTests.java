@@ -16,11 +16,21 @@ public class BookPageTests extends BaseTest {
     }
     @Test
     @Parameters({"borrowBookURL"})
-    public void borrowTest(String borrowBookURL) {
+    public void loginWithBorrowButtonTest(String borrowBookURL) {
         bookPage = new BookPage(getDriver());
-        bookPage.login().viewOrBorrowBook(borrowBookURL, "borrow");
-        Assert.assertFalse(bookPage.borrowButton().isDisplayed());
-        bookPage.clickReturnBook();
+        bookPage.viewOrBorrowBook(borrowBookURL, "borrow");
+        Assert.assertTrue(bookPage.borrowButton().isDisplayed());
+    }
+    @Test
+    @Parameters({"borrowBookURL"})
+    public void loginAndBorrowTest(String borrowBookURL) {
+        bookPage = new BookPage(getDriver());
+        bookPage.viewOrBorrowBook(borrowBookURL, "borrow");
+        bookPage.pause(5).borrowButton().click();
+        getDriver().navigate().refresh();
+        bookPage.pause(5).returnBookButton().click();
+
+        bookPage.pause(3);
         Assert.assertTrue(bookPage.borrowButton().isDisplayed());
     }
 }

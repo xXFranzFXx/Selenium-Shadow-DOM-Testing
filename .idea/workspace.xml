@@ -5,34 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5fef13ba-b8c3-4874-9160-ddc0621165af" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/reports/extent-reports/Test-automation-report.html" beforeDir="false" afterPath="$PROJECT_DIR$/reports/extent-reports/Test-automation-report.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/base/BaseTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/base/BaseTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/pages/BookPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/pages/BookPage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/tests/BookPageTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/tests/BookPageTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/TestNG.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/TestNG.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/savedImages/pamphlet/1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/savedImages/pamphlet/10.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/savedImages/pamphlet/11.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/savedImages/pamphlet/12.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/savedImages/pamphlet/13.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/savedImages/pamphlet/14.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/savedImages/pamphlet/15.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/savedImages/pamphlet/16.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/savedImages/pamphlet/17.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/savedImages/pamphlet/18.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/savedImages/pamphlet/19.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/savedImages/pamphlet/2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/savedImages/pamphlet/20.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/savedImages/pamphlet/21.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/savedImages/pamphlet/22.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/savedImages/pamphlet/23.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/savedImages/pamphlet/3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/savedImages/pamphlet/4.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/savedImages/pamphlet/5.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/savedImages/pamphlet/6.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/savedImages/pamphlet/7.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/savedImages/pamphlet/8.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/savedImages/pamphlet/9.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/savedImages/pamphlet/coverImage.png" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,15 +21,35 @@
       <ProjectState />
     </projectState>
   </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <task path="$PROJECT_DIR$">
+          <activation />
+        </task>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="Selenium-Shadow-DOM-Testing" type="f1a62948:ProjectNode" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 5
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 5
+}</component>
   <component name="ProjectId" id="2esCVYfndN8vI4g1KtQPHI63H66" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
@@ -63,6 +60,7 @@
   "keyToString": {
     "Gradle.BookPageTests.borrowTest.executor": "Run",
     "Gradle.BookPageTests.firstTest.executor": "Run",
+    "Gradle.BookPageTests.loginAndBorrowTest.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "new",
@@ -81,7 +79,7 @@
       <recent name="$PROJECT_DIR$/assets" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.BookPageTests.borrowTest">
+  <component name="RunManager" selected="Gradle.BookPageTests.loginAndBorrowTest">
     <configuration name="BookPageTests.borrowTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -130,8 +128,33 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
+    <configuration name="BookPageTests.loginAndBorrowTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;tests.BookPageTests.loginAndBorrowTest&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.BookPageTests.loginAndBorrowTest" />
         <item itemvalue="Gradle.BookPageTests.borrowTest" />
         <item itemvalue="Gradle.BookPageTests.firstTest" />
       </list>

@@ -6,12 +6,14 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Reporter;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.net.URI;
+import java.sql.DriverManager;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
@@ -55,18 +57,19 @@ public class BookPage extends BasePage{
         return this;
     }
 
-    public void clickReturnBook() {
-        WebElement returnBookButton = driver.findElement(By.tagName("ia-book-actions")).getShadowRoot()
+    public WebElement returnBookButton() {
+        return driver.findElement(By.tagName("ia-book-actions")).getShadowRoot()
                 .findElement(By.cssSelector("collapsible-action-group")).getShadowRoot()
-                .findElement(By.cssSelector("button.ia-button.danger.initial"));
-        wait.until(ExpectedConditions.elementToBeClickable(returnBookButton)).click();
+                .findElement(By.cssSelector(".ia-button.danger.initial"));
     }
     public BookPage viewOrBorrowBook(String bookURL, String choice) {
         switch (choice) {
             case "borrow" :
               driver.navigate().to(bookURL);
               borrowButton().click();
-               actions.pause(Duration.ofSeconds(10)).perform();
+                emailInput.sendKeys(System.getProperty("email"));
+                passwordInput.sendKeys(System.getProperty("password"));
+                findElement(submitButton).click();
             case "view" :
                 driver.get(bookURL);
             default:
@@ -98,21 +101,24 @@ public class BookPage extends BasePage{
     public void savePages(String directory) {
         saveCoverImage(directory);
         clickNextPage();
-        int current = Integer.parseInt(getCurrentPage("current"));
+        int current;
         int total = Integer.parseInt(getCurrentPage("total"));
-        int i = current + 1;
-        while (current <= 25) {
+        int i =  1;
+        while (i < total) {
+
+            current =  Integer.parseInt(getCurrentPage("current"));
+
             Reporter.log("i: " + i, true);
             WebElement firstImg = getImage(Integer.valueOf(i).toString());
             saveImage(firstImg, Integer.valueOf(i).toString(), directory);
             WebElement secondImg = getImage(Integer.valueOf(i+1).toString());
             saveImage(secondImg, Integer.valueOf(i+1).toString(), directory);
-            i+=2;
+            i = current + 1;
             clickNextPage();
             actions.pause(Duration.ofSeconds(15)).perform();
 
         }
-        clickReturnBook();
+        returnBookButton().click();
         actions.pause(Duration.ofSeconds(3)).perform();
     }
     public WebElement getImage(String element) {
@@ -141,6 +147,11 @@ public class BookPage extends BasePage{
             default -> matcher.group();
         };
 
+    }
+
+    public BookPage pause(int seconds) {
+        actions.pause(Duration.ofSeconds(seconds)).perform();
+        return this;
     }
     public BookPage contextMenuSaveImage() {
         String imgSRC = findElement(coverImage).getAttribute("src");
