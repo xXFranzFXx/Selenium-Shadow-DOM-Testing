@@ -38,6 +38,8 @@ public class BaseTest {
     public static void setupBrowser() throws MalformedURLException {
         threadDriver.set(pickBrowser(System.getProperty("browser")));
         getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        getDriver().manage().timeouts().pageLoadTimeout(Duration.ofSeconds(20));
+        getDriver().manage().timeouts().scriptTimeout(Duration.ofSeconds(15));
         getDriver().manage().deleteAllCookies();
     }
 
@@ -114,10 +116,9 @@ public class BaseTest {
     }
     @AfterMethod
     public static void closeBrowser() {
-        if (getDriver() == null) {
-            threadDriver.get().close();
+        if (driver != null) {
+            getDriver().quit();
             threadDriver.remove();
         }
-        threadDriver.get().quit();
     }
 }

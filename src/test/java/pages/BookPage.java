@@ -5,14 +5,19 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Reporter;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.net.URI;
+import java.sql.DriverManager;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -35,11 +40,12 @@ public class BookPage extends BasePage{
     private WebElement submitButton;
     private static final String regex = "-?\\d+";
 
+
     public BookPage(WebDriver givenDriver) {
         super(givenDriver);
     }
     public BookPage login() {
-        driver.navigate().to(System.getProperty("homePage"));
+        driver.navigate().to("https://archive.org");
         WebElement shadowLoginBtn = driver.findElement(By.tagName("app-root")).getShadowRoot()
                 .findElement(By.cssSelector("ia-topnav")).getShadowRoot()
                 .findElement(By.cssSelector("primary-nav")).getShadowRoot()
@@ -51,14 +57,20 @@ public class BookPage extends BasePage{
         findElement(submitButton).click();
         return this;
     }
+
+    public WebElement returnBookButton() {
+        return driver.findElement(By.tagName("ia-book-actions")).getShadowRoot()
+                .findElement(By.cssSelector("collapsible-action-group")).getShadowRoot()
+                .findElement(By.cssSelector(".ia-button.danger.initial"));
+    }
     public BookPage viewOrBorrowBook(String bookURL, String choice) {
         switch (choice) {
             case "borrow" :
-              driver.get(bookURL);
-              WebElement loginAndBorrowButton = driver.findElement(By.tagName("ia-book-actions")).getShadowRoot()
-                    .findElement(By.cssSelector("collapsible-action-group")).getShadowRoot()
-                    .findElement(By.cssSelector("button.ia-button.primary.initial"));
-                findElement(loginAndBorrowButton).click();
+              driver.navigate().to(bookURL);
+              borrowButton().click();
+                emailInput.sendKeys(System.getProperty("email"));
+                passwordInput.sendKeys(System.getProperty("password"));
+                findElement(submitButton).click();
             case "view" :
                 driver.get(bookURL);
             default:
@@ -76,7 +88,7 @@ public class BookPage extends BasePage{
             URI imageURL = new URI(logoSRC);
             BufferedImage saveImage = ImageIO.read(imageURL.toURL());
 
-            ImageIO.write(saveImage, "png", new File("src/test/resources/savedImages/"+directory+"/"+fileName+".png"));
+            ImageIO.write(saveImage, "png", new File("saved/"+directory+"/"+fileName+".png"));
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -86,7 +98,6 @@ public class BookPage extends BasePage{
     }
     public void saveCoverImage(String directory) {
         saveImage(coverImage, "coverImage", directory);
-
     }
     public void savePages(String directory) {
         saveCoverImage(directory);
@@ -107,7 +118,28 @@ public class BookPage extends BasePage{
         }
     }
     public WebElement getImage(String element) {
-        return driver.findElement(By.cssSelector(".pagediv"+element+" .BRpageimage"));
+        WebElement image = driver.findElement(By.cssSelector(".pagediv"+element+" .BRpageimage"));
+        return wait.until(ExpectedConditions.visibilityOf(image));
+    }
+    public String buttonText() {
+        return borrowButton().getText();
+    }
+    public WebElement borrowButton() {
+        return driver.findElement(By.tagName("ia-book-actions")).getShadowRoot()
+                .findElement(By.cssSelector("collapsible-action-group")).getShadowRoot()
+                .findElement(By.cssSelector("button.ia-button.primary.initial"));
+    }
+    public BookPage clickBorrowButton() {
+       try {
+               returnBookButton().click();
+               pause(3);
+       } catch(NoSuchElementException e) {
+           Reporter.log("Error: " + e);
+       } finally {
+           borrowButton().click();
+           pause(3);
+       }
+        return this;
     }
     public String getCurrentPage(String choice) {
         List<String> finds = new ArrayList<>();
@@ -122,6 +154,20 @@ public class BookPage extends BasePage{
             case "total" -> finds.get(1);
             default -> matcher.group();
         };
+
+    }
+
+    public BookPage pause(int seconds) {
+        actions.pause(Duration.ofSeconds(seconds)).perform();
+        return this;
+    }
+    public BookPage contextMenuSaveImage() {
+        String imgSRC = findElement(coverImage).getAttribute("src");
+        Reporter.log("imgSRC: " + imgSRC, true);
+        driver.get(imgSRC);
+        contextClick(find(By.tagName("img")));
+        actions.sendKeys(Keys.ARROW_DOWN).sendKeys(Keys.ARROW_DOWN).sendKeys(Keys.ENTER).perform();
+        return this;
     }
     public boolean isLastPage() {
         String current = getCurrentPage("current");
