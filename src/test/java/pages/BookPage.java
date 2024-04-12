@@ -115,7 +115,6 @@ public class BookPage extends BasePage{
             saveImage(secondImg, Integer.valueOf(i+1).toString(), directory);
             i = current + 2;
             clickNextPage();
-            actions.pause(Duration.ofSeconds(15)).perform();
 
         }
         returnBookButton().click();
