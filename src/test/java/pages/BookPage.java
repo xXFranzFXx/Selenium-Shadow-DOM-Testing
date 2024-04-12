@@ -113,7 +113,7 @@ public class BookPage extends BasePage{
             saveImage(firstImg, Integer.valueOf(i).toString(), directory);
             WebElement secondImg = getImage(Integer.valueOf(i+1).toString());
             saveImage(secondImg, Integer.valueOf(i+1).toString(), directory);
-            i = current + 1;
+            i = current + 2;
             clickNextPage();
             actions.pause(Duration.ofSeconds(15)).perform();
 
