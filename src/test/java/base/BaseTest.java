@@ -36,7 +36,7 @@ public class BaseTest {
 
     @BeforeMethod
     public static void setupBrowser() throws MalformedURLException {
-        threadDriver.set(pickBrowser("default"));
+        threadDriver.set(pickBrowser(System.getProperty("browser")));
         getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         getDriver().manage().timeouts().pageLoadTimeout(Duration.ofSeconds(20));
         getDriver().manage().timeouts().scriptTimeout(Duration.ofSeconds(15));
