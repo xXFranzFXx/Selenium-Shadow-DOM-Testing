@@ -12,6 +12,9 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.safari.SafariDriver;
+import org.openqa.selenium.safari.SafariDriverService;
+import org.openqa.selenium.safari.SafariOptions;
 import org.openqa.selenium.support.events.EventFiringDecorator;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
@@ -75,11 +78,14 @@ public class BaseTest {
                 return driver = new RemoteWebDriver(URI.create(gridURL).toURL(),caps);
             case "cloud":
                 return lambdaTest();
+            case "safari":
+                SafariOptions safariOptions = new SafariOptions();
+                return driver = new SafariDriver(safariOptions);
           default:
-                WebDriverManager.chromedriver().driverVersion("122").setup();
+                WebDriverManager.chromedriver().driverVersion("123").setup();
                 ChromeDriverService service = new ChromeDriverService.Builder().usingAnyFreePort().build();
                 ChromeOptions options = new ChromeOptions();
-                options.addArguments("--remote-allow-origins=*", "--disable-notifications", "--start-maximized", "--incognito");
+                options.addArguments("--remote-allow-origins=*", "--disable-notifications", "--start-maximized", "--incognito", "--headless");
                 options.setExperimentalOption("prefs", setDownloadDir());
                 TestListener eventListener = new TestListener();
                 driver = new ChromeDriver(service, options);
