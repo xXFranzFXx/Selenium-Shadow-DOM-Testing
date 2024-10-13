@@ -6,14 +6,12 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Reporter;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.net.URI;
-import java.sql.DriverManager;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
@@ -105,15 +103,25 @@ public class BookPage extends BasePage{
         int current;
         int total = Integer.parseInt(getCurrentPage("total"));
         int i = 1;
+        int count = 0;
         while (i < total) {
-            current = Integer.parseInt(getCurrentPage("current"));
-            WebElement firstImg = getImage(Integer.valueOf(i).toString());
-            saveImage(firstImg, Integer.valueOf(i).toString(), directory);
-            WebElement secondImg = getImage(Integer.valueOf(i+1).toString());
-            saveImage(secondImg, Integer.valueOf(i+1).toString(), directory);
 
-            i = current + 2;
-            clickNextPage();
+            current = Integer.parseInt(getCurrentPage("current"));
+                WebElement firstImg = getImage(Integer.valueOf(i).toString());
+                saveImage(firstImg, Integer.valueOf(i).toString(), directory);
+                WebElement secondImg = getImage(Integer.valueOf(i + 1).toString());
+                saveImage(secondImg, Integer.valueOf(i + 1).toString(), directory);
+
+                i = current + 2;
+
+                clickNextPage();
+                count++;
+                if (count == 5){
+                    saveImage(firstImg, Integer.valueOf(i).toString(), directory);
+                    saveImage(secondImg, Integer.valueOf(i + 1).toString(), directory);
+                    i = current + 4;
+                    clickNextPage();
+                }
             Reporter.log("Current: " + current, true);
         }
     }
@@ -154,7 +162,6 @@ public class BookPage extends BasePage{
             case "total" -> finds.get(1);
             default -> matcher.group();
         };
-
     }
 
     public BookPage pause(int seconds) {
