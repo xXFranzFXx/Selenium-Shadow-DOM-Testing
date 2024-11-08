@@ -105,15 +105,12 @@ public class BookPage extends BasePage{
         int i = 1;
         int count = 0;
         while (i < total) {
-
             current = Integer.parseInt(getCurrentPage("current"));
                 WebElement firstImg = getImage(Integer.valueOf(i).toString());
                 saveImage(firstImg, Integer.valueOf(i).toString(), directory);
                 WebElement secondImg = getImage(Integer.valueOf(i + 1).toString());
                 saveImage(secondImg, Integer.valueOf(i + 1).toString(), directory);
-
                 i = current + 2;
-
                 clickNextPage();
                 count++;
                 if (count == 5){
