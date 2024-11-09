@@ -160,7 +160,6 @@ public class BookPage extends BasePage{
             default -> matcher.group();
         };
     }
-
     public BookPage pause(int seconds) {
         actions.pause(Duration.ofSeconds(seconds)).perform();
         return this;
