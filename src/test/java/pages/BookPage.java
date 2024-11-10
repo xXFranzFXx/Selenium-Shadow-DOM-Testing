@@ -37,8 +37,7 @@ public class BookPage extends BasePage{
     @FindBy(css = "input[name='submit-to-login']")
     private WebElement submitButton;
     private static final String regex = "-?\\d+";
-
-
+    
     public BookPage(WebDriver givenDriver) {
         super(givenDriver);
     }
