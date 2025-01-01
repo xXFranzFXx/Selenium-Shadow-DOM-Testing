@@ -54,7 +54,6 @@ public class BookPage extends BasePage{
         findElement(submitButton).click();
         return this;
     }
-
     public WebElement returnBookButton() {
         return driver.findElement(By.tagName("ia-book-actions")).getShadowRoot()
                 .findElement(By.cssSelector("collapsible-action-group")).getShadowRoot()
